@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Contoso University</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/Scripts/jquery-1.11.3.min.js")
+        @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
+        @Styles.Render("~/Content/bootstrap/css/bootstrap.css")
+        @Styles.Render("~/Content/Datatable/css/jquery.dataTables.min.css")
+        @Scripts.Render("~/Content/Datatable/js/jquery.dataTables.min.js")
+        @Scripts.Render("~/Content/alertifycss/alertify.min.js")
+        @Styles.Render("~/Content/alertifycss/css/alertify.min.css")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Students", "Student", "Student")</li>
+                            <li>@Html.ActionLink("Courses", "Index", "Course")</li>
+                            <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                            <li>@Html.ActionLink("Departments","Index","Department")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Contoso University</p>
+                </div>
+            </div>
+        </footer>
+
+       
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function () {
+            if ('@TempData["error"]' === "true") {
+                alertify.error('@TempData["message"]');
+            } else if ('@TempData["success"]' === "true") {
+                alertify.success('@TempData["message"]');
+            } else if ('@TempData["notify"]' === "true") {
+                alertify.warning('@TempData["message"]');
+            }
+            $(document).ajaxStart(function () {
+                blockUI();
+            });
+
+            $(document).ajaxComplete(function (evento, jqXHR, data) {
+                unBlockUI();
+            });
+
+            $("#fade").hide();
+            if (typeof afterAjaxInit === "function")
+                afterAjaxInit();
+        });
+
+        </script>

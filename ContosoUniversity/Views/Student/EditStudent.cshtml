@@ -1,0 +1,36 @@
+﻿@model ContosoUniversity.Models.Student
+@{
+    ViewBag.Title = "EditStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Student</h2>
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+        <div class="col-md-8">
+        @using (Html.BeginForm("EditStudent", "Student", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            
+        <div class="form-group">
+        @Html.Label("Last Name")
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+        @Html.Label("First Mid Name")
+        @Html.TextBoxFor(m => m.FirstMidName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+        @Html.Label("Enrollment Date")
+        @Html.TextBoxFor(m => m.EnrollmentDate, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+        <input type="submit" id="saveStuden" value="Save" class="form-control success"/>
+        </div>
+        }
+        </div>
+		</div>
+	</div>
+</div>

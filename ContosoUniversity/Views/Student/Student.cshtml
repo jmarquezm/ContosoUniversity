@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ContosoUniversity.Models.Student>
+@{
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student</h2>
+
+        <div class="col-md-12">
+        <a href='@Url.Action("CreateStudent", "Student")'>New Student</a>
+        <br/>
+        <br/>
+        <table id="tblStudent">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstMidName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </th>
+        <th></th>
+    </tr>
+
+       @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstMidName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentDate)
+        </td>
+        <td>
+            <a href='@Url.Action("EditStudent", "Student", new  {id=item.ID })'>Edit</a>
+            <a href='@Url.Action("Detail","Student", new{   id=item.ID   })'>Details</a>
+            <a onclick="DeleteStudent(@item.ID)" style=" cursor:pointer;">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+        </div>
+
+        <script type="text/javascript">
+            $("#tblStudent").dataTable({
+                paginate: true,
+                scrollY: 300
+            });
+
+            function DeleteStudent(idStudent) {
+
+                alertify.confirm("Do you want delete this Student?", function (e) {
+
+                    if (e) {
+
+                        $.ajax({
+
+                            url: "/Student/DeleteStudent",
+                            data: JSON.stringify({ id: idStudent }),
+                            type: "POST",
+                            sync: true,
+                            success: function (data) {
+                                if (data.result = "ok") {
+                                    alertify.success(data.message);
+                                }
+                                else {
+                                    alertify.error(data.message);
+                                }
+
+                            },
+                            fail: function () { },
+                            dataType: "json",
+                            contentType: "application/json"
+                        });
+
+                    }
+
+                });  
+
+            }
+
+        </script>
+

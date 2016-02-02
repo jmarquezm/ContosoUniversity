@@ -1,0 +1,30 @@
+﻿@model ContosoUniversity.Models.Student
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail</h2>
+<br/>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+	
+            <div class="form-group">
+              @Html.Label("Last Name")
+              @Html.DisplayFor(m=>m.LastName)
+             </div>
+             <div class="form-group">
+             @Html.Label("First Mid Name")
+             @Html.DisplayFor(m=>m.FirstMidName)
+             </div>
+             <div class="form-group">
+             @Html.Label("Enrrollment Date")
+             @Html.DisplayFor(m=>m.EnrollmentDate)
+             </div>
+             
+             
+
+		</div>
+	</div>
+</div>
